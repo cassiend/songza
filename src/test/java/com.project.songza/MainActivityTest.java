@@ -1,11 +1,18 @@
 package com.project.songza;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Thoughtworks
- * Date: 5/26/13
- * Time: 7:06 PM
- * To change this template use File | Settings | File Templates.
- */
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+@RunWith(RobolectricTestRunner.class)
 public class MainActivityTest {
+
+    @Test
+    public void shouldTestFirstTest() {
+        String appName = new MainActivity().getResources().getString(R.string.app_name);
+        assertThat(appName, is("songza"));
+    }
 }
