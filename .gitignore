@@ -1,0 +1,13 @@
+bin
+target*
+classes
+out
+*.apk
+tmp
+gen
+.DS_Store
+screenshot_*.png
+.idea/
+*.iml
+.classpath
+.project
