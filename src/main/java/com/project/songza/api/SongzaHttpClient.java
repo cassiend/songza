@@ -1,13 +1,15 @@
 package com.project.songza.api;
 
-import android.content.Context;
 import com.google.common.base.Charsets;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
@@ -17,13 +19,13 @@ import java.net.URISyntaxException;
 import java.util.Map;
 
 @Singleton
-public class HttpClient {
+public class SongzaHttpClient {
 
-    private org.apache.http.client.HttpClient httpClient;
+    private HttpClient httpClient;
 
     @Inject
-    public HttpClient(Context context, org.apache.http.client.HttpClient httpClient){
-        this.httpClient = httpClient;
+    public SongzaHttpClient(){
+        httpClient = new DefaultHttpClient(new BasicHttpParams());
     }
 
     public Response get(String url, Map<String, String> headers) throws IOException, URISyntaxException {
@@ -55,8 +57,12 @@ public class HttpClient {
             this.body = body;
         }
 
-        public String getBody() {
+        public String getBody(){
             return body;
+        }
+
+        public int getStatusCode(){
+            return statusCode;
         }
 
         public boolean isSuccess() {
@@ -64,7 +70,7 @@ public class HttpClient {
         }
 
         public <T> T getBodyAs(Type aType) {
-            return JsonHelper.fromJson(getBody(), aType);
+            return JsonHelper.fromJson(body, aType);
         }
 
         @Override
