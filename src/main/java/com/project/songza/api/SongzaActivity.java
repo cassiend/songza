@@ -5,20 +5,22 @@ import com.google.common.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public abstract class SongzaActivity {
+public class SongzaActivity {
     private final String title;
-    private String description;
     private Long id;
 
     public static final Type LIST_TYPE = new TypeToken<List<SongzaActivity>>(){}.getType();
 
-    protected SongzaActivity(String title, String description) {
+    protected SongzaActivity(String title) {
         this.title = title;
-        this.description = description;
     }
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String title() {
+        return title;
     }
 
 //    public ContentValues asValues() {
