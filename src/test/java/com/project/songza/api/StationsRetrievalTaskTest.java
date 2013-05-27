@@ -16,11 +16,10 @@ import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 
-
 @RunWith(RobolectricTestRunner.class)
-public class ActivitiesRetrievalTaskTest {
+public class StationsRetrievalTaskTest {
 
-    private ActivitiesRetrievalTask task;
+    private StationsRetrievalTask task;
 
     @Mock
     private SongzaHttpClient.Response response;
@@ -32,7 +31,7 @@ public class ActivitiesRetrievalTaskTest {
         initMocks(this);
         given(songzaHttpClient.get(anyString(), anyMap())).willReturn(response);
 
-        task = new ActivitiesRetrievalTask(null, songzaHttpClient);
+        task = new StationsRetrievalTask(null, songzaHttpClient, "stationIds");
     }
 
     @Test
@@ -45,22 +44,22 @@ public class ActivitiesRetrievalTaskTest {
 
     @Test
     public void shouldReturnListOfActivitiesIfResponseIsSuccessful() throws Exception {
-        List<SongzaActivity> activities = newArrayList(new SongzaActivity("Title1", newArrayList()), new SongzaActivity("Title2", newArrayList()));
-        when(response.getBodyAs(SongzaActivity.LIST_TYPE)).thenReturn(activities);
+        List<Station> stations = newArrayList(new Station("Station Title1"), new Station("Station Title2"));
+        when(response.getBodyAs(Station.LIST_TYPE)).thenReturn(stations);
         when(response.isSuccess()).thenReturn(true);
 
-        List<SongzaActivity> actualActivities = task.call();
+        List<Station> actualStations = task.call();
 
-        assertThat(actualActivities.get(0).title(), is("Title1"));
-        assertThat(actualActivities.get(1).title(), is("Title2"));
+        assertThat(actualStations.get(0).title(), is("Station Title1"));
+        assertThat(actualStations.get(1).title(), is("Station Title2"));
     }
 
     @Test
     public void shouldReturnEmptyListResonseNotSuccessful()  throws Exception {
         when(response.isSuccess()).thenReturn(false);
 
-        List<SongzaActivity> actualActivities = task.call();
+        List<Station> actualStations = task.call();
 
-        assertThat(actualActivities.size(), is(0));
+        assertThat(actualStations.size(), is(0));
     }
 }

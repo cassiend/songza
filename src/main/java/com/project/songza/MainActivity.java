@@ -1,6 +1,7 @@
 package com.project.songza;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,10 +12,11 @@ import com.project.songza.api.ActivitiesRetrievalTask;
 import com.project.songza.api.SongzaActivitiesArrayAdapter;
 import com.project.songza.api.SongzaActivity;
 import com.project.songza.api.SongzaHttpClient;
+import roboguice.activity.RoboActivity;
 
 import java.util.List;
 
-public class MainActivity extends Activity implements ActivitiesRetrievalTask.RetrieveActivitiesCallback {
+public class MainActivity extends RoboActivity implements ActivitiesRetrievalTask.RetrieveActivitiesCallback {
 
     private static final String LOG_CLASS = "MainActivity";
     private ListView list;
@@ -62,14 +64,20 @@ public class MainActivity extends Activity implements ActivitiesRetrievalTask.Re
         }
 
         list.setAdapter(adapter);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        list.setOnItemClickListener(getStation_ids(this));
+
+        Log.i(LOG_CLASS, "There are activities");
+    }
+
+    private AdapterView.OnItemClickListener getStation_ids(final Activity activity) {
+        return new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 SongzaActivity songzaActivity = (SongzaActivity) view.getTag();
-
+                Intent stationsActivity = new Intent(activity, StationsActivity.class);
+                stationsActivity.putExtra("station_ids", songzaActivity.getStationIds());
+                activity.startActivity(stationsActivity);
             }
-        });
-
-        Log.i(LOG_CLASS, "There are activities");
+        };
     }
 }
