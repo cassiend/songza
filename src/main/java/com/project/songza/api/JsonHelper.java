@@ -7,11 +7,8 @@ import java.lang.reflect.Type;
 
 public class JsonHelper {
     private static final Gson GSON = new GsonBuilder()
-            .registerTypeAdapter(SongzaActivity.class, new StationJsonAdapter())
+            .registerTypeAdapter(SongzaActivity.class, new SonzgaActivityJsonAdapter())
             .create();
-
-    private JsonHelper() {
-    }
 
     public static <T> T fromJson(String s, Type typeOfT) {
         return GSON.fromJson(s, typeOfT);

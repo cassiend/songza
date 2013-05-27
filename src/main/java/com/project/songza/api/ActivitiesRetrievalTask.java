@@ -7,15 +7,18 @@ import roboguice.util.SafeAsyncTask;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivitiesRetrievalTask extends SafeAsyncTask {
+public class ActivitiesRetrievalTask extends SafeAsyncTask<List<SongzaActivity>> {
 
     private static final String LOG_CLASS = "ActivitiesRetrievalTask";
     public static final String GET_ACTIVITIES_CALL = "http://dev3.songza.com/api/1/gallery/tag/activities";
-    private SongzaHttpClient songzaHttpClient;
+
+    private final RetrieveActivitiesCallback callback;
+    private final SongzaHttpClient songzaHttpClient;
 
     @Inject
-    public ActivitiesRetrievalTask(SongzaHttpClient songzaHttpClient) {
+    public ActivitiesRetrievalTask(RetrieveActivitiesCallback callback, SongzaHttpClient songzaHttpClient) {
         super();
+        this.callback = callback;
         this.songzaHttpClient = songzaHttpClient;
     }
 
@@ -32,5 +35,14 @@ public class ActivitiesRetrievalTask extends SafeAsyncTask {
             Log.e(LOG_CLASS, "Retrieve events from server not success");
         }
         return list;
+    }
+
+    @Override
+    protected void onSuccess(List<SongzaActivity> activities) throws Exception {
+        callback.onActivitiesReturned(activities);
+    }
+
+    public interface RetrieveActivitiesCallback{
+        void onActivitiesReturned(List<SongzaActivity> activities);
     }
 }

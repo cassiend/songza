@@ -33,7 +33,7 @@ public class ActivitiesRetrievalTaskTest {
         initMocks(this);
         given(songzaHttpClient.get(anyString(), anyMap())).willReturn(response);
 
-        task = new ActivitiesRetrievalTask(songzaHttpClient);
+        task = new ActivitiesRetrievalTask(null, songzaHttpClient);
     }
 
     @Test

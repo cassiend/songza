@@ -9,12 +9,10 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
 
@@ -25,12 +23,12 @@ public class SongzaHttpClient {
 
     @Inject
     public SongzaHttpClient(){
-        httpClient = new DefaultHttpClient(new BasicHttpParams());
+        httpClient = new DefaultHttpClient();
     }
 
     public Response get(String url, Map<String, String> headers) throws IOException, URISyntaxException {
-        URI uri = new URI(url);
-        return makeRequest(headers, new HttpGet(uri));
+        HttpGet httpget = new HttpGet(url);
+        return makeRequest(headers, httpget);
     }
 
     private Response makeRequest(Map<String, String> headers, HttpRequestBase method) {
