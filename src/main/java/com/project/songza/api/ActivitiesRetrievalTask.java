@@ -13,13 +13,11 @@ public class ActivitiesRetrievalTask extends SafeAsyncTask<List<SongzaActivity>>
     public static final String GET_ACTIVITIES_CALL = "http://dev3.songza.com/api/1/gallery/tag/activities";
 
     private final RetrieveActivitiesCallback callback;
-    private final SongzaHttpClient songzaHttpClient;
 
     @Inject
-    public ActivitiesRetrievalTask(RetrieveActivitiesCallback callback, SongzaHttpClient songzaHttpClient) {
+    public ActivitiesRetrievalTask(RetrieveActivitiesCallback callback) {
         super();
         this.callback = callback;
-        this.songzaHttpClient = songzaHttpClient;
     }
 
     @Override
@@ -27,7 +25,8 @@ public class ActivitiesRetrievalTask extends SafeAsyncTask<List<SongzaActivity>>
         List<SongzaActivity> list = new ArrayList<SongzaActivity>();
 
         ApiRequest request = ApiRequest.createGetRequest(GET_ACTIVITIES_CALL);
-        SongzaHttpClient.Response response = songzaHttpClient.get(request.url(), request.headers());
+        
+        SongzaHttpClient.Response response = new SongzaHttpClient().get(request.url(), request.headers());
 
         if (response.isSuccess()) {
             list = response.getBodyAs(SongzaActivity.LIST_TYPE);

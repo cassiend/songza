@@ -6,7 +6,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import com.project.songza.api.ActivitiesRetrievalTask;
 import com.project.songza.api.SongzaActivity;
-import com.project.songza.api.SongzaHttpClient;
 
 import java.util.List;
 
@@ -22,8 +21,8 @@ public class MainActivity extends Activity implements ActivitiesRetrievalTask.Re
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         list = (ListView) findViewById(R.id.activities_list);
-        SongzaHttpClient httpClient = new SongzaHttpClient();
-        ActivitiesRetrievalTask task = new ActivitiesRetrievalTask(this, httpClient);
+
+        ActivitiesRetrievalTask task = new ActivitiesRetrievalTask(this);
         task.execute();
     }
 
