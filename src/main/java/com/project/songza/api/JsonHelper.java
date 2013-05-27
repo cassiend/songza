@@ -7,7 +7,7 @@ import java.lang.reflect.Type;
 
 public class JsonHelper {
     private static final Gson GSON = new GsonBuilder()
-            .registerTypeAdapter(Station.class, new StationJsonAdapter())
+            .registerTypeAdapter(SongzaActivity.class, new StationJsonAdapter())
             .create();
 
     private JsonHelper() {

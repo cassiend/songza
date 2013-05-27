@@ -1,11 +1,18 @@
 package com.project.songza.api;
 
-public abstract class Station {
+import com.google.common.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.List;
+
+public abstract class SongzaActivity {
     private final String title;
     private String description;
     private Long id;
 
-    protected Station(String title, String description) {
+    public static final Type LIST_TYPE = new TypeToken<List<SongzaActivity>>(){}.getType();
+
+    protected SongzaActivity(String title, String description) {
         this.title = title;
         this.description = description;
     }
