@@ -47,6 +47,5 @@ public class MainActivityTest {
         TextView error = (TextView) mainActivity.findViewById(R.id.no_activities_text);
         assertThat(error.getVisibility(), is(View.VISIBLE));
         assertThat(listView.getVisibility(), is(View.GONE));
-
     }
 }

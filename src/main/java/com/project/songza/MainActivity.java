@@ -4,16 +4,15 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.project.songza.api.ActivitiesRetrievalTask;
+import com.project.songza.api.SongzaActivitiesArrayAdapter;
 import com.project.songza.api.SongzaActivity;
 import com.project.songza.api.SongzaHttpClient;
 
 import java.util.List;
-
-import static com.google.common.collect.Lists.newArrayList;
 
 public class MainActivity extends Activity implements ActivitiesRetrievalTask.RetrieveActivitiesCallback {
 
@@ -43,15 +42,7 @@ public class MainActivity extends Activity implements ActivitiesRetrievalTask.Re
             noActivities.setVisibility(View.VISIBLE);
             Log.i(LOG_CLASS, "There are no activities");
         } else {
-            final List<String> listOfTitles = newArrayList();
-
-            for (SongzaActivity activity : activities) {
-                listOfTitles.add(activity.title());
-            }
-
-            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.activity_list_item, R.id.activity_item_title, listOfTitles);
-            list.setAdapter(adapter);
-            Log.i(LOG_CLASS, "There are activities");
+            setupListOfActivities(activities);
         }
     }
 
@@ -61,5 +52,24 @@ public class MainActivity extends Activity implements ActivitiesRetrievalTask.Re
         TextView error = (TextView) findViewById(R.id.error_text);
         error.setVisibility(View.VISIBLE);
         Log.i(LOG_CLASS, "There was an error retrieving activities");
+    }
+
+    private void setupListOfActivities(List<SongzaActivity> activities) {
+        final SongzaActivitiesArrayAdapter adapter = new SongzaActivitiesArrayAdapter(this);
+
+        for (SongzaActivity activity : activities) {
+            adapter.add(activity);
+        }
+
+        list.setAdapter(adapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                SongzaActivity songzaActivity = (SongzaActivity) view.getTag();
+
+            }
+        });
+
+        Log.i(LOG_CLASS, "There are activities");
     }
 }
