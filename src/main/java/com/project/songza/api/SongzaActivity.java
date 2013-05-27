@@ -10,7 +10,7 @@ public class SongzaActivity {
 
     public static final Type LIST_TYPE = new TypeToken<List<SongzaActivity>>(){}.getType();
 
-    protected SongzaActivity(String title) {
+    public SongzaActivity(String title) {
         this.title = title;
     }
 

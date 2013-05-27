@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">songza</string>
+    <string name="error_activities">An Error Occurred, try again later</string>
+    <string name="no_activities">There are no activities.</string>
 </resources>

@@ -24,7 +24,6 @@ public class ActivitiesRetrievalTaskTest {
 
     @Mock
     private SongzaHttpClient.Response response;
-
     @Mock
     private SongzaHttpClient songzaHttpClient;
 
@@ -33,7 +32,7 @@ public class ActivitiesRetrievalTaskTest {
         initMocks(this);
         given(songzaHttpClient.get(anyString(), anyMap())).willReturn(response);
 
-        task = new ActivitiesRetrievalTask(null);
+        task = new ActivitiesRetrievalTask(null, songzaHttpClient);
     }
 
     @Test
@@ -46,7 +45,7 @@ public class ActivitiesRetrievalTaskTest {
 
     @Test
     public void shouldReturnListOfActivitiesIfResponseIsSuccessful() throws Exception {
-        List<SongzaActivity> activities = getEvents();
+        List<SongzaActivity> activities = newArrayList(new SongzaActivity("Title1"), new SongzaActivity("Title2"));
         when(response.getBodyAs(SongzaActivity.LIST_TYPE)).thenReturn(activities);
         when(response.isSuccess()).thenReturn(true);
 
@@ -54,10 +53,6 @@ public class ActivitiesRetrievalTaskTest {
 
         assertThat(actualActivities.get(0).title(), is("Title1"));
         assertThat(actualActivities.get(1).title(), is("Title2"));
-    }
-
-    private List<SongzaActivity> getEvents() {
-        return newArrayList(new SongzaActivity("Title1"), new SongzaActivity("Title2"));
     }
 
     @Test
