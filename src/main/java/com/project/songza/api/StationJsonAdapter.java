@@ -12,6 +12,7 @@ public class StationJsonAdapter implements JsonDeserializer<Station> {
 
     public static final String NAME = "name";
     public static final String URL = "cover_url";
+    public static final String DESCRIPTION = "description";
     public static final String FEATURED_ARTISTS = "featured_artists";
 
     @Override
@@ -27,6 +28,8 @@ public class StationJsonAdapter implements JsonDeserializer<Station> {
             JsonObject artistName = asJsonArray.get(i).getAsJsonObject();
             artistNames.add(artistName.get("name").getAsString());
         }
-        return new Station(title, url, artistNames);
+
+        String description = asJsonObject.get(DESCRIPTION).getAsString();
+        return new Station(title, url, artistNames, description);
     }
 }

@@ -50,7 +50,7 @@ public class StationsRetrievalTaskTest {
 
     @Test
     public void shouldReturnListOfStationsIfResponseIsSuccessful() throws Exception {
-        List<Station> stations = newArrayList(new Station("Station Title1", "some url", new ArrayList<String>()), new Station("Station Title2", "some url", new ArrayList<String>()));
+        List<Station> stations = newArrayList(new Station("Station Title1", "some url", new ArrayList<String>(), "some description"), new Station("Station Title2", "some url", new ArrayList<String>(), "some description"));
         when(response.getBodyAs(Station.LIST_TYPE)).thenReturn(stations);
         when(response.isSuccess()).thenReturn(true);
 
@@ -59,6 +59,8 @@ public class StationsRetrievalTaskTest {
         assertThat(actualStations.get(0).title(), is("Station Title1"));
         assertThat(actualStations.get(1).title(), is("Station Title2"));
         assertThat(actualStations.get(1).url(), is("some url"));
+        assertThat(actualStations.get(1).getArtistNames().size(), is(0));
+        assertThat(actualStations.get(1).description(), is("some description"));
     }
 
     @Test

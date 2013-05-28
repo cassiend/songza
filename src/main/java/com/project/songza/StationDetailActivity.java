@@ -25,6 +25,9 @@ public class StationDetailActivity extends RoboActivity{
         listView = (ListView) findViewById(R.id.featured_artist_list);
 
         station = (Station) getIntent().getSerializableExtra(StationsActivity.STATION);
+
+        TextView descriptionText = (TextView) findViewById(R.id.station_description);
+        descriptionText.setText(station.description());
         onArtistsReturned(station.getArtistNames());
     }
 

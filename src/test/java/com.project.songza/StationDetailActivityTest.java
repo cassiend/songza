@@ -25,6 +25,7 @@ public class StationDetailActivityTest {
 
     @Mock
     private Station station;
+
     private ListView listView;
 
     @Before
