@@ -2,7 +2,7 @@ package com.project.songza;
 
 import android.view.View;
 import android.widget.TextView;
-import com.project.songza.api.SongzaActivity;
+import com.project.songza.domain.SongzaActivity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

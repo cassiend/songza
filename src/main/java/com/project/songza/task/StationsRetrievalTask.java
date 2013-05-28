@@ -1,34 +1,39 @@
-package com.project.songza.api;
+package com.project.songza.task;
 
 import android.util.Log;
 import com.google.inject.Inject;
+import com.project.songza.api.ApiRequest;
+import com.project.songza.api.SongzaHttpClient;
+import com.project.songza.domain.SongzaActivity;
+import com.project.songza.domain.Station;
 import roboguice.util.SafeAsyncTask;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class stationIds extends SafeAsyncTask<List<Station>> {
+public class StationsRetrievalTask extends SafeAsyncTask<List<Station>> {
 
     private static final String LOG_CLASS = "StationsRetrievalTask";
-    public static final String GET_STATIONS_CALL = "http://dev3.songza.com/api/1/gallery/tag/activities";
+    public static final String GET_STATIONS_CALL = "http://dev3.songza.com/api/1/station/multi?";
 
     private final RetrieveStationsCallback callback;
     private final SongzaHttpClient songzaHttpClient;
-    private final String activityId;
+    private final SongzaActivity songzaActivity;
 
     @Inject
-    public stationIds(RetrieveStationsCallback callback, SongzaHttpClient songzaHttpClient, String activityId) {
+    public StationsRetrievalTask(RetrieveStationsCallback callback, SongzaHttpClient songzaHttpClient, SongzaActivity songzaActivity) {
         super();
         this.callback = callback;
         this.songzaHttpClient = songzaHttpClient;
-        this.activityId = activityId;
+        this.songzaActivity = songzaActivity;
     }
 
     @Override
     public List<Station> call() throws Exception {
         List<Station> list = new ArrayList<Station>();
 
-        ApiRequest request = ApiRequest.createGetRequest(GET_STATIONS_CALL);
+        String getStations = String.valueOf(new StringBuilder(GET_STATIONS_CALL).append(songzaActivity.getStationIds()));
+        ApiRequest request = ApiRequest.createGetRequest(getStations);
 
         SongzaHttpClient.Response response = songzaHttpClient.get(request.url(), request.headers());
 
@@ -42,7 +47,7 @@ public class stationIds extends SafeAsyncTask<List<Station>> {
 
     @Override
     protected void onSuccess(List<Station> stations) throws Exception {
-        callback.onActivitiesReturned(stations);
+        callback.onStationsReturned(stations);
     }
 
     @Override
@@ -51,7 +56,7 @@ public class stationIds extends SafeAsyncTask<List<Station>> {
     }
 
     public interface RetrieveStationsCallback {
-        void onActivitiesReturned(List<Station> stations);
+        void onStationsReturned(List<Station> stations);
         void onError();
     }
 }

@@ -3,8 +3,8 @@ package com.project.songza;
 import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
-import com.project.songza.api.SongzaActivity;
-import com.project.songza.api.Station;
+import com.project.songza.domain.SongzaActivity;
+import com.project.songza.domain.Station;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +23,7 @@ public class StationsActivityTest {
 
     private StationsActivity stationsActivity;
     private View listView;
-    
+
     @Mock
     private SongzaActivity songzaActivity;
 
@@ -54,7 +54,7 @@ public class StationsActivityTest {
     public void shouldShowNoActivitiesMessageIfNoActivities() {
         List<Station> stations = newArrayList();
 
-        stationsActivity.onActivitiesReturned(stations);
+        stationsActivity.onStationsReturned(stations);
 
         TextView error = (TextView) stationsActivity.findViewById(R.id.no_stations_text);
         assertThat(error.getVisibility(), is(View.VISIBLE));

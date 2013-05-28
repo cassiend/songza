@@ -1,5 +1,8 @@
-package com.project.songza.api;
+package com.project.songza.task;
 
+import com.project.songza.api.SongzaHttpClient;
+import com.project.songza.domain.SongzaActivity;
+import com.project.songza.task.ActivitiesRetrievalTask;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

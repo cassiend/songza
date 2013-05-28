@@ -1,7 +1,10 @@
-package com.project.songza.api;
+package com.project.songza.task;
 
 import android.util.Log;
 import com.google.inject.Inject;
+import com.project.songza.api.ApiRequest;
+import com.project.songza.api.SongzaHttpClient;
+import com.project.songza.domain.SongzaActivity;
 import roboguice.util.SafeAsyncTask;
 
 import java.util.ArrayList;

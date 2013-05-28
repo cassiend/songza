@@ -9,16 +9,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.project.songza.api.SongzaActivity;
-import com.project.songza.api.Station;
+import com.project.songza.domain.SongzaActivity;
+import com.project.songza.domain.Station;
 import com.project.songza.api.StationsArrayAdapter;
 import com.project.songza.api.SongzaHttpClient;
-import com.project.songza.api.StationsRetrievalTask;
+import com.project.songza.task.StationsRetrievalTask;
 import roboguice.activity.RoboActivity;
 
 import java.util.List;
 
-public class StationsActivity extends RoboActivity implements StationsRetrievalTask.RetrieveStationsCallback{
+public class StationsActivity extends RoboActivity implements StationsRetrievalTask.RetrieveStationsCallback {
 
     private static final String LOG_CLASS = "StationsActivity";
     public static final String STATION = "station";
@@ -45,11 +45,11 @@ public class StationsActivity extends RoboActivity implements StationsRetrievalT
     }
 
     @Override
-    public void onActivitiesReturned(List<Station> stations) {
+    public void onStationsReturned(List<Station> stations) {
         if (stations.size() == 0) {
             list.setVisibility(View.GONE);
-            TextView noActivities = (TextView) findViewById(R.id.no_stations_text);
-            noActivities.setVisibility(View.VISIBLE);
+            TextView noStationsText = (TextView) findViewById(R.id.no_stations_text);
+            noStationsText.setVisibility(View.VISIBLE);
             Log.i(LOG_CLASS, "There are no stations");
         } else {
             setupListOfStations(stations);

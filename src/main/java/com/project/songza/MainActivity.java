@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.project.songza.api.ActivitiesRetrievalTask;
+import com.project.songza.task.ActivitiesRetrievalTask;
 import com.project.songza.api.SongzaActivitiesArrayAdapter;
-import com.project.songza.api.SongzaActivity;
+import com.project.songza.domain.SongzaActivity;
 import com.project.songza.api.SongzaHttpClient;
 import roboguice.activity.RoboActivity;
 

@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.google.inject.Inject;
 import com.project.songza.R;
+import com.project.songza.domain.SongzaActivity;
 
 public class SongzaActivitiesArrayAdapter extends ArrayAdapter<SongzaActivity> {
 

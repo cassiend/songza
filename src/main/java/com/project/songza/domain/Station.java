@@ -1,4 +1,4 @@
-package com.project.songza.api;
+package com.project.songza.domain;
 
 import com.google.common.reflect.TypeToken;
 

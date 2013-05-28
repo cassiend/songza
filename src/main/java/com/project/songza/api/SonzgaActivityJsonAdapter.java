@@ -1,6 +1,7 @@
 package com.project.songza.api;
 
 import com.google.gson.*;
+import com.project.songza.domain.SongzaActivity;
 
 import java.lang.reflect.Type;
 import java.util.List;

@@ -11,7 +11,7 @@
             android:id="@+id/error_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/error_activities"
+            android:text="@string/errors"
             android:visibility="gone"/>
     <TextView
             android:id="@+id/no_activities_text"

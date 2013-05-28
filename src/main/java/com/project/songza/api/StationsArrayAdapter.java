@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.inject.Inject;
 import com.project.songza.R;
+import com.project.songza.domain.Station;
+import com.project.songza.task.ImageTask;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

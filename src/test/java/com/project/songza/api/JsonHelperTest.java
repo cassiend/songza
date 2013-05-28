@@ -1,5 +1,6 @@
 package com.project.songza.api;
 
+import com.project.songza.domain.SongzaActivity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;

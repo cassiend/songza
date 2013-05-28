@@ -2,6 +2,8 @@ package com.project.songza.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.project.songza.domain.SongzaActivity;
+import com.project.songza.domain.Station;
 
 import java.lang.reflect.Type;
 
