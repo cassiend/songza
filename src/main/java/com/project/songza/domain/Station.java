@@ -10,10 +10,12 @@ public class Station implements Serializable {
     public static final Type LIST_TYPE = new TypeToken<List<Station>>(){}.getType();
     private String title;
     private final String url;
+    private final List<String> artistNames;
 
-    public Station(String title, String url) {
+    public Station(String title, String url, List<String> artistNames) {
         this.title = title;
         this.url = url;
+        this.artistNames = artistNames;
     }
 
     public String title() {
@@ -22,5 +24,9 @@ public class Station implements Serializable {
 
     public String url() {
         return url;
+    }
+
+    public List<String> getArtistNames() {
+        return artistNames;
     }
 }

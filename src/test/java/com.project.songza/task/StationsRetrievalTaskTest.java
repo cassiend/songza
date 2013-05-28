@@ -3,13 +3,13 @@ package com.project.songza.task;
 import com.project.songza.api.SongzaHttpClient;
 import com.project.songza.domain.SongzaActivity;
 import com.project.songza.domain.Station;
-import com.project.songza.task.StationsRetrievalTask;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -50,7 +50,7 @@ public class StationsRetrievalTaskTest {
 
     @Test
     public void shouldReturnListOfStationsIfResponseIsSuccessful() throws Exception {
-        List<Station> stations = newArrayList(new Station("Station Title1", "some url"), new Station("Station Title2", "some url"));
+        List<Station> stations = newArrayList(new Station("Station Title1", "some url", new ArrayList<String>()), new Station("Station Title2", "some url", new ArrayList<String>()));
         when(response.getBodyAs(Station.LIST_TYPE)).thenReturn(stations);
         when(response.isSuccess()).thenReturn(true);
 

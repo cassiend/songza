@@ -24,10 +24,10 @@ public class StationDetailActivity extends RoboActivity{
         listView = (ListView) findViewById(R.id.featured_artist_list);
 
         station = (Station) getIntent().getSerializableExtra(StationsActivity.STATION);
-        station.url();
+        onArtistsReturned(station.getArtistNames());
     }
 
-    public void onArtistsReturned(List<Station> artists) {
+    public void onArtistsReturned(List<String> artists) {
         if (artists.size() == 0) {
             listView.setVisibility(View.GONE);
             TextView noArtistsText = (TextView) findViewById(R.id.no_artists_text);

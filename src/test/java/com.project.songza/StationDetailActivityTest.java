@@ -43,9 +43,9 @@ public class StationDetailActivityTest {
 
     @Test
     public void shouldShowNoActivitiesMessageIfNoActivities() {
-        List<Station> stations = newArrayList();
+        List<String> artists = newArrayList();
 
-        stationDetailActivity.onArtistsReturned(stations);
+        stationDetailActivity.onArtistsReturned(artists);
 
         TextView error = (TextView) stationDetailActivity.findViewById(R.id.no_artists_text);
         assertThat(error.getVisibility(), is(View.VISIBLE));
