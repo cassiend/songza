@@ -25,13 +25,15 @@ public class StationsRetrievalTaskTest {
     private SongzaHttpClient.Response response;
     @Mock
     private SongzaHttpClient songzaHttpClient;
+    @Mock
+    private SongzaActivity songzaActivity;
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
         given(songzaHttpClient.get(anyString(), anyMap())).willReturn(response);
 
-        task = new StationsRetrievalTask(null, songzaHttpClient, "stationIds");
+        task = new StationsRetrievalTask(null, songzaHttpClient, songzaActivity);
     }
 
     @Test

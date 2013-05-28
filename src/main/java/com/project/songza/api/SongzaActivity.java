@@ -3,10 +3,11 @@ package com.project.songza.api;
 import com.google.common.reflect.TypeToken;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class SongzaActivity {
+public class SongzaActivity implements Serializable {
     private final String title;
     private final List<String> stationIds;
 

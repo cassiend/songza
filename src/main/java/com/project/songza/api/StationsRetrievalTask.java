@@ -14,21 +14,21 @@ public class StationsRetrievalTask extends SafeAsyncTask<List<Station>> {
 
     private final RetrieveStationsCallback callback;
     private final SongzaHttpClient songzaHttpClient;
-    private final String stationIds;
+    private final SongzaActivity songzaActivity;
 
     @Inject
-    public StationsRetrievalTask(RetrieveStationsCallback callback, SongzaHttpClient songzaHttpClient, String stationIds) {
+    public StationsRetrievalTask(RetrieveStationsCallback callback, SongzaHttpClient songzaHttpClient, SongzaActivity songzaActivity) {
         super();
         this.callback = callback;
         this.songzaHttpClient = songzaHttpClient;
-        this.stationIds = stationIds;
+        this.songzaActivity = songzaActivity;
     }
 
     @Override
     public List<Station> call() throws Exception {
         List<Station> list = new ArrayList<Station>();
 
-        String getStations = String.valueOf(new StringBuilder(GET_STATIONS_CALL).append(stationIds));
+        String getStations = String.valueOf(new StringBuilder(GET_STATIONS_CALL).append(songzaActivity.getStationIds()));
         ApiRequest request = ApiRequest.createGetRequest(getStations);
 
         SongzaHttpClient.Response response = songzaHttpClient.get(request.url(), request.headers());

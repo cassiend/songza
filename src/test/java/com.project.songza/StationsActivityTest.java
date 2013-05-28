@@ -3,10 +3,12 @@ package com.project.songza;
 import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
+import com.project.songza.api.SongzaActivity;
 import com.project.songza.api.Station;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
 
 import java.util.List;
@@ -21,6 +23,9 @@ public class StationsActivityTest {
 
     private StationsActivity stationsActivity;
     private View listView;
+    
+    @Mock
+    private SongzaActivity songzaActivity;
 
     @Before
     public void setUp() {
@@ -29,7 +34,7 @@ public class StationsActivityTest {
         stationsActivity = new StationsActivity();
 
         Intent someIntent = new Intent();
-        someIntent.putExtra(StationsActivity.STATION_IDS, "some ids");
+        someIntent.putExtra(StationsActivity.SONGZA_ACTIVITY, songzaActivity);
         stationsActivity.setIntent(someIntent);
 
         stationsActivity.onCreate(null);

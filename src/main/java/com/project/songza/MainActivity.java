@@ -19,6 +19,7 @@ import java.util.List;
 public class MainActivity extends RoboActivity implements ActivitiesRetrievalTask.RetrieveActivitiesCallback {
 
     private static final String LOG_CLASS = "MainActivity";
+    public static final String SONGZA_ACTIVITY = "songza_activity";
     private ListView list;
 
     @Override
@@ -75,7 +76,7 @@ public class MainActivity extends RoboActivity implements ActivitiesRetrievalTas
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 SongzaActivity songzaActivity = (SongzaActivity) view.getTag();
                 Intent stationsActivity = new Intent(activity, StationsActivity.class);
-                stationsActivity.putExtra("station_ids", songzaActivity.getStationIds());
+                stationsActivity.putExtra(SONGZA_ACTIVITY, songzaActivity);
                 activity.startActivity(stationsActivity);
             }
         };
