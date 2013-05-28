@@ -43,8 +43,8 @@ public class StationsRetrievalTaskTest {
 
 
     @Test
-    public void shouldReturnListOfActivitiesIfResponseIsSuccessful() throws Exception {
-        List<Station> stations = newArrayList(new Station("Station Title1"), new Station("Station Title2"));
+    public void shouldReturnListOfStationsIfResponseIsSuccessful() throws Exception {
+        List<Station> stations = newArrayList(new Station("Station Title1", "some url"), new Station("Station Title2", "some url"));
         when(response.getBodyAs(Station.LIST_TYPE)).thenReturn(stations);
         when(response.isSuccess()).thenReturn(true);
 
@@ -52,10 +52,11 @@ public class StationsRetrievalTaskTest {
 
         assertThat(actualStations.get(0).title(), is("Station Title1"));
         assertThat(actualStations.get(1).title(), is("Station Title2"));
+        assertThat(actualStations.get(1).url(), is("some url"));
     }
 
     @Test
-    public void shouldReturnEmptyListResonseNotSuccessful()  throws Exception {
+    public void shouldReturnEmptyListResponseNotSuccessful()  throws Exception {
         when(response.isSuccess()).thenReturn(false);
 
         List<Station> actualStations = task.call();

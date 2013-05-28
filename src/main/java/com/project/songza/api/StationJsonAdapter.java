@@ -10,11 +10,13 @@ import java.lang.reflect.Type;
 public class StationJsonAdapter implements JsonDeserializer<Station> {
 
     public static final String NAME = "name";
+    public static final String URL = "cover_url";
 
     @Override
     public Station deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
         JsonObject asJsonObject = json.getAsJsonObject();
         String title = asJsonObject.get(NAME).getAsString();
-        return new Station(title);
+        String url = asJsonObject.get(URL).getAsString();
+        return new Station(title, url);
     }
 }
