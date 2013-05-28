@@ -4,6 +4,7 @@ package com.project.songza;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.project.songza.domain.Station;
@@ -34,7 +35,10 @@ public class StationDetailActivity extends RoboActivity{
             noArtistsText.setVisibility(View.VISIBLE);
             Log.i(LOG_CLASS, "There are no artists");
         } else {
-
+            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.artist_list_item, artists);
+            listView.setAdapter(adapter);
+            Log.i(LOG_CLASS, "There are artists");
         }
     }
+
 }
