@@ -2,17 +2,20 @@ package com.project.songza;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import com.project.songza.api.SongzaHttpClient;
+import com.project.songza.api.StationsArrayAdapter;
 import com.project.songza.domain.SongzaActivity;
 import com.project.songza.domain.Station;
-import com.project.songza.api.StationsArrayAdapter;
-import com.project.songza.api.SongzaHttpClient;
 import com.project.songza.task.StationsRetrievalTask;
 import roboguice.activity.RoboActivity;
 
@@ -25,6 +28,7 @@ public class StationsActivity extends RoboActivity implements StationsRetrievalT
     public static final String SONGZA_ACTIVITY = "songza_activity";
     private ListView list;
     private SongzaActivity songzaActivity;
+    private StationsArrayAdapter stationsArrayAdapter;
 
 
     @Override
@@ -33,11 +37,7 @@ public class StationsActivity extends RoboActivity implements StationsRetrievalT
         setContentView(R.layout.stations);
         list = (ListView) findViewById(R.id.stations_list);
         songzaActivity = (SongzaActivity) getIntent().getExtras().get(SONGZA_ACTIVITY);
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
         SongzaHttpClient httpClient = new SongzaHttpClient();
         StationsRetrievalTask task = new StationsRetrievalTask(this, httpClient, songzaActivity);
 
@@ -65,26 +65,54 @@ public class StationsActivity extends RoboActivity implements StationsRetrievalT
     }
 
     private void setupListOfStations(List<Station> stations) {
-        final StationsArrayAdapter adapter = new StationsArrayAdapter(this);
+        stationsArrayAdapter = new StationsArrayAdapter(this);
+        stationsArrayAdapter.setNotifyOnChange(true);
 
         for (Station station : stations) {
-            adapter.add(station);
+            stationsArrayAdapter.add(station);
         }
 
-        list.setAdapter(adapter);
-        list.setOnItemClickListener(setStationClickListener(this));
+        list.setAdapter(stationsArrayAdapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Station station = (Station) view.getTag();
+                Intent stationsActivity = new Intent(StationsActivity.this, StationDetailActivity.class);
+                stationsActivity.putExtra(STATION, station);
+                startActivityForResult(stationsActivity, 0);
+            }
+        });
+
+        list.setOnItemLongClickListener(setOnLongClickListener(this));
 
         Log.i(LOG_CLASS, "There are stations");
     }
 
-    private AdapterView.OnItemClickListener setStationClickListener(final Activity activity) {
-        return new AdapterView.OnItemClickListener() {
+    private AdapterView.OnItemLongClickListener setOnLongClickListener(final Activity activity) {
+        return new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Station station = (Station) view.getTag();
-                Intent stationsActivity = new Intent(activity, StationDetailActivity.class);
-                stationsActivity.putExtra(STATION, station);
-                activity.startActivity(stationsActivity);
+            public boolean onItemLongClick(AdapterView<?> adapterView, final View view, int i, long l) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
+                alertDialogBuilder.setTitle("Favorite?");
+                alertDialogBuilder
+                        .setMessage("Click yes to set as favorite")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                view.setBackgroundColor(Color.BLUE);
+                                dialog.cancel();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                view.setBackgroundColor(Color.TRANSPARENT);
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+                return false;
             }
         };
     }

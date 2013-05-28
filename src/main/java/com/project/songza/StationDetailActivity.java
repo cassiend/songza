@@ -12,7 +12,7 @@ import roboguice.activity.RoboActivity;
 
 import java.util.List;
 
-public class StationDetailActivity extends RoboActivity{
+public class StationDetailActivity extends RoboActivity {
     private static final String LOG_CLASS = "StationDetailActivity";
 
     private Station station;
@@ -31,7 +31,7 @@ public class StationDetailActivity extends RoboActivity{
         onArtistsReturned(station.getArtistNames());
     }
 
-    public void onArtistsReturned(List<String> artists) {
+    void onArtistsReturned(List<String> artists) {
         if (artists.size() == 0) {
             listView.setVisibility(View.GONE);
             TextView noArtistsText = (TextView) findViewById(R.id.no_artists_text);
@@ -43,5 +43,4 @@ public class StationDetailActivity extends RoboActivity{
             Log.i(LOG_CLASS, "There are artists");
         }
     }
-
 }

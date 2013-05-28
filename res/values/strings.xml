@@ -5,4 +5,5 @@
     <string name="no_activities">There are no activities.</string>
     <string name="no_stations">There are no stations.</string>
     <string name="no_artists">There are no artists.</string>
+    <string name="favorite">Favorite</string>
 </resources>

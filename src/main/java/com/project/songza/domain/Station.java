@@ -9,6 +9,7 @@ import java.util.List;
 public class Station implements Serializable {
     public static final Type LIST_TYPE = new TypeToken<List<Station>>(){}.getType();
     private String title;
+    private boolean isFavorite;
     private final String url;
     private final List<String> artistNames;
     private final String description;
@@ -18,6 +19,7 @@ public class Station implements Serializable {
         this.url = url;
         this.artistNames = artistNames;
         this.description = description;
+        this.isFavorite = false;
     }
 
     public String title() {
@@ -34,5 +36,13 @@ public class Station implements Serializable {
 
     public String description() {
         return description;
+    }
+
+    public void setFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
     }
 }

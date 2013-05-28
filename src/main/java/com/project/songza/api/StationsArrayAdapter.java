@@ -28,12 +28,12 @@ public class StationsArrayAdapter extends ArrayAdapter<Station> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = super.getView(position, convertView, parent);
+        final View view = super.getView(position, convertView, parent);
 
         TextView stationItemTitle = (TextView) view.findViewById(R.id.station_item_title);
         final ImageView stationItemImage = (ImageView) view.findViewById(R.id.station_item_image);
 
-        final Station station = getItem(position);
+        Station station = getItem(position);
         view.setTag(station);
         stationItemTitle.setText(station.title());
 
@@ -48,6 +48,7 @@ public class StationsArrayAdapter extends ArrayAdapter<Station> {
 
         threadPool.execute(imageTask);
     }
+
 
     static class OnCompleteHandler extends Handler {
         private final ImageView view;
